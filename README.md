@@ -161,3 +161,9 @@ Output:
      126 stage
        2 trailer
 
+
+Copyright
+---------
+
+This software is based on pugixml library (http://pugixml.org).
+pugixml is Copyright (C) 2006-2015 Arseny Kapoulkine.
