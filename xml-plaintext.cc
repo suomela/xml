@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include "pugixml/pugixml.hpp"
+#include "pugixml/src/pugixml.hpp"
 
 struct Walker : pugi::xml_tree_walker
 {
