@@ -4,8 +4,6 @@
 #include <vector>
 #include "pugixml/src/pugixml.hpp"
 
-using namespace std::string_literals;
-
 struct TopWalker : pugi::xml_tree_walker
 {
     TopWalker(bool indent_) : indent{indent_}
@@ -85,11 +83,11 @@ int main(int argc, const char** argv) {
     bool indent = false;
     int i = 1;
     while (i < argc) {
-        if (argv[i] == "--indent"s) {
+        if (argv[i] == std::string("--indent")) {
             indent = true;
-        } else if (argv[i] == "--tree"s) {
+        } else if (argv[i] == std::string("--tree")) {
             tree = true;
-        } else if (argv[i] == "--reverse"s) {
+        } else if (argv[i] == std::string("--reverse")) {
             reverse = true;
         } else {
             break;

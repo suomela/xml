@@ -1,4 +1,4 @@
-CXXFLAGS=-std=c++14 -O3
+CXXFLAGS=-std=c++11 -O3
 
 all: xml-plaintext xml-tags
 
