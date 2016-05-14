@@ -5,13 +5,24 @@
 
 struct Walker : pugi::xml_tree_walker
 {
+    Walker(std::string skipped_) : skipped{skipped_}, depth_seen{-1} {}
+
     virtual bool for_each(pugi::xml_node& node) {
         using namespace pugi;
-        if (node.type() == node_pcdata) {
+        if (depth_seen != -1 && depth() <= depth_seen) {
+            depth_seen = -1;
+        }
+        if (depth_seen == -1 && node.type() == node_element && skipped == node.name()) {
+            depth_seen = depth();
+        }
+        if (depth_seen == -1 && node.type() == node_pcdata) {
             std::cout << node.value();
         }
         return true;
     }
+
+    std::string skipped;
+    int depth_seen;
 };
 
 static void parse_path(std::vector<std::string>& path, const char* p) {
@@ -36,13 +47,14 @@ static void parse_path(std::vector<std::string>& path, const char* p) {
 
 int main(int argc, const char** argv) {
     std::ios_base::sync_with_stdio(0);
-    if (argc < 2) {
-        std::cerr << "usage: ./xml-plaintext PATH FILE ..." << std::endl;
+    if (argc < 3) {
+        std::cerr << "usage: ./xml-plaintext PATH SKIPPED FILE ..." << std::endl;
         std::exit(1);
     }
     std::vector<std::string> path;
     parse_path(path, argv[1]);
-    for (int i = 2; i < argc; ++i) {
+    std::string skipped{argv[2]};
+    for (int i = 3; i < argc; ++i) {
         const char* filename = argv[i];
         using namespace pugi;
         unsigned opt = parse_default | parse_ws_pcdata;
@@ -60,7 +72,7 @@ int main(int argc, const char** argv) {
                 std::exit(1);
             }
         }
-        Walker w;
+        Walker w(skipped);
         node.traverse(w);
     }
 }

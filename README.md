@@ -60,6 +60,12 @@ Output:
     ...
 
 
+Extract everything inside `<text>`, skipping element `<desc>`:
+
+    ./xml-plaintext-skip TEI/text desc A12074.xml
+
+
+
 ### List all XML tags
 
 List all tags inside `<teiHeader>`:

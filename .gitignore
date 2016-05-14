@@ -1,4 +1,5 @@
 build/
 xml-plaintext
+xml-plaintext-skip
 xml-tags
 *.xml
